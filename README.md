@@ -56,8 +56,7 @@ As shown in the maps below, this location is situated centrally between the Lake
 *Figure 2: Regional map showing the triangulated coordinate (orange pin) relative to Mount Diablo (red pin) and other known Zodiac crime scenes (blue pins).*
 
 ![Local context map](https://camo.githubusercontent.com/15fb7fdc1f934fc1fc8544afe83c9db185a83eb28413c60c3402c8ed5ee928fc/68747470733a2f2f692e696d6775722e636f6d2f424534356d79422e6a706567)
-*Figure 3: Local context view showing the derived location (green triangle) in close proximity to Lake Herman Road (red pin), a confirmed Zodiac crime scene approximately 2.47 miles away.*
-
+*Figure 3: Local context view showing the triangular landmark in close proximity to Z32 solution coordinates (red pin).
 ---
 
 ## 3. Site Analysis: The "Green Triangle" Anomaly
@@ -65,7 +64,7 @@ As shown in the maps below, this location is situated centrally between the Lake
 Satellite imagery of the derived coordinates reveals a distinct geographic feature precisely at the target location.
 
 ![Satellite view showing a distinct triangular vegetation pattern](https://camo.githubusercontent.com/d1d0b80d288caff115b1a6114b3670ffc017c40c3c58a0a71b1154f16364f060/68747470733a2f2f692e696d6775722e636f6d2f764641356648742e6a706567)
-*Figure 4: Satellite close-up showing a distinct, 100-foot-base triangular vegetation pattern precisely at the derived coordinates.*
+*Figure 4: Satellite close-up showing a distinct, 100-foot-base triangular vegetation pattern near the derived coordinates.*
 
 ### Analysis of the Anomaly
 
