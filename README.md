@@ -35,8 +35,22 @@ The strongest corroboration for this solution is physical. The decoded coordinat
 
 In archaeological remote sensing, such "positive crop marks" indicate deep subsurface soil disturbance (e.g., a filled excavation), which allows vegetation to retain moisture longer than the surrounding terrain. This is consistent with the killer's threat to bury a cache.
 
-![The Green Triangle](docs/images/z32_coordinates_closeup.jpg)
+![The Green Triangle](docs/images/triangle-zoomed.jpg)
 *Figure 1: The "Green Triangle." A distinct geometric crop mark located at the solution coordinates. Historical imagery confirms its presence dating back to the investigation era.*
+
+### The Geometric Alignment
+
+As seen below, the physical triangular anomaly aligns with the ciphertext's geometric structure.
+
+![Ciphertext Overlay](docs/images/ciphertext-overlay.png)
+
+*Figure 2: The Z32 Overlay. The ciphertext symbols projected onto the physical terrain.*
+
+Specifically, the **first triangle symbol (△)** in the Z32 cipher aligns perfectly with the **triangular anomaly** on the ground. This direct correlation suggests the symbol set was derived from or mapped to this specific geographic feature.
+
+![Z32 Triangle Symbol](docs/images/ciphertext-triangle.jpg)
+
+*Figure 3: The First Symbol. Detail of the first triangle symbol from the Z32 ciphertext, which corresponds to the physical anomaly.*
 
 ---
 
