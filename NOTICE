@@ -1,0 +1,29 @@
+Stampher 2026 Zodiac Z32 GeoCSP
+Copyright (c) 2026 David Stampher
+
+This product includes proprietary imagery and map data used under fair use/academic allowance for the purpose of reproducing research findings. The following third-party assets are displayed in the project documentation:
+
+1. GOOGLE EARTH / AIRBUS DS
+   Type: Satellite Imagery
+   Files:
+    - docs/img/fig03_decoded_context.jpg
+    - docs/img/fig04_triangle_closeup.jpg
+    - docs/img/fig05_symbol_correspondence.jpg
+    - docs/img/fig06a_triangle_water_2023.jpg
+    - docs/img/fig06d_triangle_bw_2012.jpg
+   Copyright: Imagery © Google Earth, Airbus
+
+2. OPENSTREETMAP / CARTO
+   Type: Map Basemaps
+   Files:
+    - docs/img/fig08_operational_triangle.jpg
+    - docs/img/fig10_clock_framework.jpg
+    - docs/img/fig14b_synthesis_geometry_clean.jpg
+   Copyright: Map base © OpenStreetMap contributors, © CARTO
+
+3. AUTHOR GENERATED
+   Type: Diagrams and Charts
+   Files:
+    - docs/img/fig11_survivor_distribution.jpg
+    - docs/img/fig12_constraint_funnel.jpg
+   Copyright: © 2026 David Stampher (MIT License)

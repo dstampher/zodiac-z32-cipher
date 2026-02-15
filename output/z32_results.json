@@ -1,0 +1,637 @@
+{
+  "metadata": {
+    "solver_version": "2.0",
+    "timestamp": "2026-02-14T17:36:21.038867",
+    "total_candidates": 2044224,
+    "passed_length": 154572,
+    "passed_locks": 61,
+    "passed_bounds": 54,
+    "rejection_rate_pct": 99.99735841081994,
+    "num_survivors": 54
+  },
+  "constants": {
+    "anchor": [
+      37.881628,
+      -121.914382
+    ],
+    "mag_declination": 17.0,
+    "map_scale_mi_per_inch": 6.4,
+    "locks": [
+      [
+        0,
+        25
+      ],
+      [
+        1,
+        31
+      ],
+      [
+        5,
+        13
+      ]
+    ]
+  },
+  "lexicon_sizes": {
+    "integers": 13,
+    "fractions": 26,
+    "prefixes": 7,
+    "rad_units": 4,
+    "dist_units": 3
+  },
+  "survivors": [
+    {
+      "phrase": "INTHREEANDTHREEEIGHTHSRADIANSTEN",
+      "readable": "IN THREE AND THREEEIGHTHS RADIANS TEN",
+      "distance_inches": 3.375,
+      "clock_hour": 10,
+      "latitude": 38.10995162847465,
+      "longitude": -122.18534868582475,
+      "nearest_scene": "blue_rock_springs",
+      "nearest_dist_mi": 1.1520785348089226,
+      "template": "A"
+    },
+    {
+      "phrase": "INTHREEANDTHREEFOURTHSRADIANSTEN",
+      "readable": "IN THREE AND THREEFOURTHS RADIANS TEN",
+      "distance_inches": 3.75,
+      "clock_hour": 10,
+      "latitude": 38.13528243209508,
+      "longitude": -122.21556048107719,
+      "nearest_scene": "blue_rock_springs",
+      "nearest_dist_mi": 1.4760436372988974,
+      "template": "A"
+    },
+    {
+      "phrase": "INTHREEANDSEVENEIGHTHSRADIANSTEN",
+      "readable": "IN THREE AND SEVENEIGHTHS RADIANS TEN",
+      "distance_inches": 3.875,
+      "clock_hour": 10,
+      "latitude": 38.143724313237044,
+      "longitude": -122.2256357396631,
+      "nearest_scene": "blue_rock_springs",
+      "nearest_dist_mi": 2.2410960324876856,
+      "template": "A"
+    },
+    {
+      "phrase": "ATFOURANDATHIRDINCHESRADIANEIGHT",
+      "readable": "AT FOUR AND AT H I R D INCHES RADIAN EIGHT",
+      "distance_inches": 4.333333333333333,
+      "clock_hour": 8,
+      "latitude": 37.79029957316015,
+      "longitude": -122.40928216625035,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 2.6133259110263767,
+      "template": "G"
+    },
+    {
+      "phrase": "ATFIVEANDTHREESIXTEENTHSRADEIGHT",
+      "readable": "AT FIVE AND THREESIXTEENTHS RAD EIGHT",
+      "distance_inches": 5.1875,
+      "clock_hour": 8,
+      "latitude": 37.77205332755397,
+      "longitude": -122.50668945857103,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 2.9421941387397417,
+      "template": "A"
+    },
+    {
+      "phrase": "ATFOURANDAQUARTERINCHRADIANEIGHT",
+      "readable": "AT FOUR AND A QUARTER INCH RADIAN EIGHT",
+      "distance_inches": 4.25,
+      "clock_hour": 8,
+      "latitude": 37.79207540062113,
+      "longitude": -122.39977644269555,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 3.138666130369314,
+      "template": "G"
+    },
+    {
+      "phrase": "ATFIVEANDTHREEEIGHTHSRADIANEIGHT",
+      "readable": "AT FIVE AND THREEEIGHTHS RADIAN EIGHT",
+      "distance_inches": 5.375,
+      "clock_hour": 8,
+      "latitude": 37.76803732440006,
+      "longitude": -122.5280651052545,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 4.130080212250888,
+      "template": "A"
+    },
+    {
+      "phrase": "INFOURANDAFOURTHINCHESRADIANSTEN",
+      "readable": "IN FOUR AND A FOURTH INCHES RADIANS TEN",
+      "distance_inches": 4.25,
+      "clock_hour": 10,
+      "latitude": 38.16904479002612,
+      "longitude": -122.25587551005086,
+      "nearest_scene": "blue_rock_springs",
+      "nearest_dist_mi": 4.608028993365791,
+      "template": "G"
+    },
+    {
+      "phrase": "INTWOANDONEQUARTERINCHRADIANSTEN",
+      "readable": "IN TWO AND ONE QUARTER INCH RADIANS TEN",
+      "distance_inches": 2.25,
+      "clock_hour": 10,
+      "latitude": 38.03391288331531,
+      "longitude": -122.09483888878141,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 4.993758509767274,
+      "template": "G"
+    },
+    {
+      "phrase": "ATFIVEANDFIVEEIGHTHSINCHRADEIGHT",
+      "readable": "AT FIVE AND FIVEEIGHTHS INCH RAD EIGHT",
+      "distance_inches": 5.625,
+      "clock_hour": 8,
+      "latitude": 37.762676648373244,
+      "longitude": -122.55656235417113,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 5.7217978656921815,
+      "template": "G"
+    },
+    {
+      "phrase": "INCHESTWOANDASIXTEENTHRADIANSTEN",
+      "readable": "INCHES TWO AND A SIXTEENTH RADIANS TEN",
+      "distance_inches": 2.0625,
+      "clock_hour": 10,
+      "latitude": 38.02123301827905,
+      "longitude": -122.07977220194813,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 6.17700046623729,
+      "template": "K"
+    },
+    {
+      "phrase": "ATFIVEANDTHREEFOURTHSRADIANEIGHT",
+      "readable": "AT FIVE AND THREEFOURTHS RADIAN EIGHT",
+      "distance_inches": 5.75,
+      "clock_hour": 8,
+      "latitude": 37.75999373737472,
+      "longitude": -122.57080942896584,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 6.5191774737287735,
+      "template": "A"
+    },
+    {
+      "phrase": "ATTHREEANDFIVEEIGHTHSRADIANEIGHT",
+      "readable": "AT THREE AND FIVEEIGHTHS RADIAN EIGHT",
+      "distance_inches": 3.625,
+      "clock_hour": 8,
+      "latitude": 37.805369756508625,
+      "longitude": -122.32846896415599,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 7.11672003259288,
+      "template": "A"
+    },
+    {
+      "phrase": "ATTHREEANDNINESIXTEENTHSRADEIGHT",
+      "readable": "AT THREE AND NINESIXTEENTHS RAD EIGHT",
+      "distance_inches": 3.5625,
+      "clock_hour": 8,
+      "latitude": 37.80669682789284,
+      "longitude": -122.321336805303,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 7.515806803505089,
+      "template": "A"
+    },
+    {
+      "phrase": "ATTHREEANDFIVESIXTEENTHSRADEIGHT",
+      "readable": "AT THREE AND FIVESIXTEENTHS RAD EIGHT",
+      "distance_inches": 3.3125,
+      "clock_hour": 8,
+      "latitude": 37.812000813074505,
+      "longitude": -122.29280560751538,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 9.112954703730203,
+      "template": "A"
+    },
+    {
+      "phrase": "ATSIXANDONEQUARTERINCHESRADEIGHT",
+      "readable": "AT SIX AND ONE QUARTER INCHES RAD EIGHT",
+      "distance_inches": 6.25,
+      "clock_hour": 8,
+      "latitude": 37.74924494692172,
+      "longitude": -122.62778738572486,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 9.71300629774958,
+      "template": "G"
+    },
+    {
+      "phrase": "ATINCHSIXANDTHREEEIGHTHSRADEIGHT",
+      "readable": "AT INCH SIX AND THREEEIGHTHS RAD EIGHT",
+      "distance_inches": 6.375,
+      "clock_hour": 8,
+      "latitude": 37.74655346414687,
+      "longitude": -122.64202928688607,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 10.512050010586224,
+      "template": "K"
+    },
+    {
+      "phrase": "INONEANDONEQUARTERINCHRADIANSTEN",
+      "readable": "IN ONE AND ONE QUARTER INCH RADIANS TEN",
+      "distance_inches": 1.25,
+      "clock_hour": 10,
+      "latitude": 37.9662647483243,
+      "longitude": -122.01454342836793,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 11.34513466413075,
+      "template": "G"
+    },
+    {
+      "phrase": "INCHESONEANDASIXTEENTHRADIANSTEN",
+      "readable": "INCHES ONE AND A SIXTEENTH RADIANS TEN",
+      "distance_inches": 1.0625,
+      "clock_hour": 10,
+      "latitude": 37.95357465127674,
+      "longitude": -121.99950450831471,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 12.541522673657626,
+      "template": "K"
+    },
+    {
+      "phrase": "ATINCHTWOANDTHREEFOURTHSRADEIGHT",
+      "readable": "AT INCH TWO AND THREEFOURTHS RAD EIGHT",
+      "distance_inches": 2.75,
+      "clock_hour": 8,
+      "latitude": 37.823909612833006,
+      "longitude": -122.22859543943922,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 12.709161037043566,
+      "template": "K"
+    },
+    {
+      "phrase": "ATINCHSIXANDTHREEFOURTHSRADEIGHT",
+      "readable": "AT INCH SIX AND THREEFOURTHS RAD EIGHT",
+      "distance_inches": 6.75,
+      "clock_hour": 8,
+      "latitude": 37.73846873608905,
+      "longitude": -122.68474877136059,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 12.909891852374576,
+      "template": "K"
+    },
+    {
+      "phrase": "INFIVEANDTHREEQUARTERSRADIANSTEN",
+      "readable": "IN FIVE AND THREEQUARTERS RADIANS TEN",
+      "distance_inches": 5.75,
+      "clock_hour": 10,
+      "latitude": 38.27024897620248,
+      "longitude": -122.37704499595078,
+      "nearest_scene": "blue_rock_springs",
+      "nearest_dist_mi": 14.187304522754038,
+      "template": "A"
+    },
+    {
+      "phrase": "ATINCHTWOANDTHREEEIGHTHSRADEIGHT",
+      "readable": "AT INCH TWO AND THREEEIGHTHS RAD EIGHT",
+      "distance_inches": 2.375,
+      "clock_hour": 8,
+      "latitude": 37.83182944327534,
+      "longitude": -122.18577716060837,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 15.107635864455203,
+      "template": "K"
+    },
+    {
+      "phrase": "ATTWOANDONEQUARTERINCHESRADEIGHT",
+      "readable": "AT TWO AND ONE QUARTER INCHES RAD EIGHT",
+      "distance_inches": 2.25,
+      "clock_hour": 8,
+      "latitude": 37.83446594168052,
+      "longitude": -122.1715023593424,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 15.907229712162025,
+      "template": "G"
+    },
+    {
+      "phrase": "INCHESSIXANDASIXTEENTHRADIANSTEN",
+      "readable": "INCHES SIX AND A SIXTEENTH RADIANS TEN",
+      "distance_inches": 6.0625,
+      "clock_hour": 10,
+      "latitude": 38.29131748062224,
+      "longitude": -122.40233111888467,
+      "nearest_scene": "blue_rock_springs",
+      "nearest_dist_mi": 16.18607814819418,
+      "template": "K"
+    },
+    {
+      "phrase": "ATSEVENANDFIVESIXTEENTHSRADEIGHT",
+      "readable": "AT SEVEN AND FIVESIXTEENTHS RAD EIGHT",
+      "distance_inches": 7.3125,
+      "clock_hour": 8,
+      "latitude": 37.72631274618074,
+      "longitude": -122.74881048404002,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 16.50783074332843,
+      "template": "A"
+    },
+    {
+      "phrase": "ATINCHONEANDTHREEEIGHTHSRADEIGHT",
+      "readable": "AT INCH ONE AND THREEEIGHTHS RAD EIGHT",
+      "distance_inches": 1.375,
+      "clock_hour": 8,
+      "latitude": 37.85287317002862,
+      "longitude": -122.07155021835499,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 17.183148372324833,
+      "template": "K"
+    },
+    {
+      "phrase": "ATONEANDONEQUARTERINCHESRADEIGHT",
+      "readable": "AT ONE AND ONE QUARTER INCHES RAD EIGHT",
+      "distance_inches": 1.25,
+      "clock_hour": 8,
+      "latitude": 37.85549587628774,
+      "longitude": -122.05726727103529,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 17.20421848645871,
+      "template": "G"
+    },
+    {
+      "phrase": "ATINCHONEANDTHREEFOURTHSRADEIGHT",
+      "readable": "AT INCH ONE AND THREEFOURTHS RAD EIGHT",
+      "distance_inches": 1.75,
+      "clock_hour": 8,
+      "latitude": 37.84499470227657,
+      "longitude": -122.1143929592526,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 17.34263251419038,
+      "template": "K"
+    },
+    {
+      "phrase": "INSIXANDONEQUARTERINCHRADIANSTEN",
+      "readable": "IN SIX AND ONE QUARTER INCH RADIANS TEN",
+      "distance_inches": 6.25,
+      "clock_hour": 10,
+      "latitude": 38.3039559770651,
+      "longitude": -122.41750984002746,
+      "nearest_scene": "blue_rock_springs",
+      "nearest_dist_mi": 17.385477718927262,
+      "template": "G"
+    },
+    {
+      "phrase": "INZEROANDONEFOURTHINCHRADIANSTEN",
+      "readable": "IN ZERO AND ONE FOURTH INCH RADIANS TEN",
+      "distance_inches": 0.25,
+      "clock_hour": 10,
+      "latitude": 37.898562137340384,
+      "longitude": -121.93439584870679,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 17.73151250036121,
+      "template": "G"
+    },
+    {
+      "phrase": "ATSEVENANDNINESIXTEENTHSRADEIGHT",
+      "readable": "AT SEVEN AND NINESIXTEENTHS RAD EIGHT",
+      "distance_inches": 7.5625,
+      "clock_hour": 8,
+      "latitude": 37.72089895898953,
+      "longitude": -122.77727560028717,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 18.107177690095202,
+      "template": "A"
+    },
+    {
+      "phrase": "ATSEVENANDFIVEEIGHTHSRADIANEIGHT",
+      "readable": "AT SEVEN AND FIVEEIGHTHS RADIAN EIGHT",
+      "distance_inches": 7.625,
+      "clock_hour": 8,
+      "latitude": 37.71954444290503,
+      "longitude": -122.78439122902775,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 18.507032066463676,
+      "template": "A"
+    },
+    {
+      "phrase": "ATZEROANDONEFOURTHINCHESRADEIGHT",
+      "readable": "AT ZERO AND ONE FOURTH INCHES RAD EIGHT",
+      "distance_inches": 0.25,
+      "clock_hour": 8,
+      "latitude": 37.8764153913914,
+      "longitude": -121.94296715820578,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 18.65103778096726,
+      "template": "G"
+    },
+    {
+      "phrase": "INSEVENANDTHREEEIGHTHSRADIANSTEN",
+      "readable": "IN SEVEN AND THREEEIGHTHS RADIANS TEN",
+      "distance_inches": 7.375,
+      "clock_hour": 10,
+      "latitude": 38.379745812702666,
+      "longitude": -122.50869337085821,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 19.6440661486717,
+      "template": "A"
+    },
+    {
+      "phrase": "INSEVENANDTHREEFOURTHSRADIANSTEN",
+      "readable": "IN SEVEN AND THREEFOURTHS RADIANS TEN",
+      "distance_inches": 7.75,
+      "clock_hour": 10,
+      "latitude": 38.40499337996573,
+      "longitude": -122.539130326808,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 19.914002258604903,
+      "template": "A"
+    },
+    {
+      "phrase": "INSEVENANDSEVENEIGHTHSRADIANSTEN",
+      "readable": "IN SEVEN AND SEVENEIGHTHS RADIANS TEN",
+      "distance_inches": 7.875,
+      "clock_hour": 10,
+      "latitude": 38.413407485975064,
+      "longitude": -122.54928070378641,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 20.067058795505538,
+      "template": "A"
+    },
+    {
+      "phrase": "THREERADIANZEROANDONEQUARTERINCH",
+      "readable": "THREE RADIAN ZERO AND ONE QUARTER INCH",
+      "distance_inches": 0.25,
+      "clock_hour": 3,
+      "latitude": 37.87485427011679,
+      "longitude": -121.88632741953101,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 20.693396051018894,
+      "template": "I"
+    },
+    {
+      "phrase": "ATEIGHTANDONEHALFINCHRADIANEIGHT",
+      "readable": "AT EIGHT AND ONE HALF INCH RADIAN EIGHT",
+      "distance_inches": 8.5,
+      "clock_hour": 8,
+      "latitude": 37.7005363319868,
+      "longitude": -122.88398267809465,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 24.105500696993925,
+      "template": "G"
+    },
+    {
+      "phrase": "INNINEANDTHREEQUARTERSRADIANSTEN",
+      "readable": "IN NINE AND THREEQUARTERS RADIANS TEN",
+      "distance_inches": 9.75,
+      "clock_hour": 10,
+      "latitude": 38.539513735228,
+      "longitude": -122.70182063209208,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 25.457337501074736,
+      "template": "A"
+    },
+    {
+      "phrase": "INCHESTENANDASIXTEENTHRADIANSTEN",
+      "readable": "INCHES TEN AND A SIXTEENTH RADIANS TEN",
+      "distance_inches": 10.0625,
+      "clock_hour": 10,
+      "latitude": 38.56051217727184,
+      "longitude": -122.72729591174962,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 26.776370194243093,
+      "template": "K"
+    },
+    {
+      "phrase": "INTENANDONEQUARTERINCHRADIANSTEN",
+      "readable": "IN TEN AND ONE QUARTER INCH RADIANS TEN",
+      "distance_inches": 10.25,
+      "clock_hour": 10,
+      "latitude": 38.573108591328115,
+      "longitude": -122.74258822465055,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 27.60711412351621,
+      "template": "G"
+    },
+    {
+      "phrase": "INCHTENANDTHREEEIGHTHSRADIANSTEN",
+      "readable": "INCH TEN AND THREEEIGHTHS RADIANS TEN",
+      "distance_inches": 10.375,
+      "clock_hour": 10,
+      "latitude": 38.58150509506051,
+      "longitude": -122.75278607917545,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 28.175732526982678,
+      "template": "K"
+    },
+    {
+      "phrase": "ATNINEANDTHREESIXTEENTHSRADEIGHT",
+      "readable": "AT NINE AND THREESIXTEENTHS RAD EIGHT",
+      "distance_inches": 9.1875,
+      "clock_hour": 8,
+      "latitude": 37.68554265238143,
+      "longitude": -122.9621972114533,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 28.504719531688796,
+      "template": "A"
+    },
+    {
+      "phrase": "ATNINEANDTHREEEIGHTHSRADIANEIGHT",
+      "readable": "AT NINE AND THREEEIGHTHS RADIAN EIGHT",
+      "distance_inches": 9.375,
+      "clock_hour": 8,
+      "latitude": 37.68144450373707,
+      "longitude": -122.98352295464441,
+      "nearest_scene": "presidio_heights",
+      "nearest_dist_mi": 29.70454664644845,
+      "template": "A"
+    },
+    {
+      "phrase": "INCHTENANDTHREEFOURTHSRADIANSTEN",
+      "readable": "INCH TEN AND THREEFOURTHS RADIANS TEN",
+      "distance_inches": 10.75,
+      "clock_hour": 10,
+      "latitude": 38.60668929399082,
+      "longitude": -122.78339395443905,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 29.9451047782184,
+      "template": "K"
+    },
+    {
+      "phrase": "INCHTENANDSEVENEIGHTHSRADIANSTEN",
+      "readable": "INCH TEN AND SEVENEIGHTHS RADIANS TEN",
+      "distance_inches": 10.875,
+      "clock_hour": 10,
+      "latitude": 38.615082254634125,
+      "longitude": -122.793601353501,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 30.554024472608795,
+      "template": "K"
+    },
+    {
+      "phrase": "SEVENANDONEQUARTERINCHRADSTWELVE",
+      "readable": "SEVEN AND ONE QUARTER INCH RADS TWELVE",
+      "distance_inches": 7.25,
+      "clock_hour": 12,
+      "latitude": 38.52356723601149,
+      "longitude": -121.66342366737835,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 30.834410596919476,
+      "template": "G"
+    },
+    {
+      "phrase": "ONTHREEANDONEEIGHTHINCHTWORADIAN",
+      "readable": "ON THREE AND ONE EIGHTH INCH TWO RADIAN",
+      "distance_inches": 3.125,
+      "clock_hour": 2,
+      "latitude": 37.946201621642146,
+      "longitude": -121.55672762653322,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 33.58182798250449,
+      "template": "H"
+    },
+    {
+      "phrase": "INELEVENANDFIVEEIGHTHSRADIANSTEN",
+      "readable": "IN ELEVEN AND FIVEEIGHTHS RADIANS TEN",
+      "distance_inches": 11.625,
+      "clock_hour": 10,
+      "latitude": 38.66542137581079,
+      "longitude": -122.85489594628568,
+      "nearest_scene": "lake_berryessa",
+      "nearest_dist_mi": 34.372414218609386,
+      "template": "A"
+    },
+    {
+      "phrase": "ONTHREEANDTHREEQUARTERSTWORADIAN",
+      "readable": "ON THREE AND THREEQUARTERS TWO RADIAN",
+      "distance_inches": 3.75,
+      "clock_hour": 2,
+      "latitude": 37.95898634528099,
+      "longitude": -121.48512162732244,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 37.0750640199269,
+      "template": "C"
+    },
+    {
+      "phrase": "ONFOURANDAQUARTERINCHESTWORADIAN",
+      "readable": "ON FOUR AND A QUARTER INCHES TWO RADIAN",
+      "distance_inches": 4.25,
+      "clock_hour": 2,
+      "latitude": 37.96918286663908,
+      "longitude": -121.42781890283436,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 39.9381670653112,
+      "template": "H"
+    },
+    {
+      "phrase": "ONSEVENANDONEEIGHTHINCHTWORADIAN",
+      "readable": "ON SEVEN AND ONE EIGHTH INCH TWO RADIAN",
+      "distance_inches": 7.125,
+      "clock_hour": 2,
+      "latitude": 38.0272727464605,
+      "longitude": -121.09802074881543,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 57.099486750371014,
+      "template": "H"
+    },
+    {
+      "phrase": "ONSEVENANDTHREEQUARTERSTWORADIAN",
+      "readable": "ON SEVEN AND THREEQUARTERS TWO RADIAN",
+      "distance_inches": 7.75,
+      "clock_hour": 2,
+      "latitude": 38.03977900785757,
+      "longitude": -121.02625656751513,
+      "nearest_scene": "lake_herman_road",
+      "nearest_dist_mi": 60.925949335243516,
+      "template": "C"
+    }
+  ]
+}

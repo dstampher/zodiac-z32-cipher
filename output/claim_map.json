@@ -1,0 +1,394 @@
+{
+  "generated_at": "2026-02-14T17:36:26.652308",
+  "tex_file": "F:\\Source\\repos\\zodiac\\z32\\docs\\Stampher_2026_Zodiac_Z32_GeoCSP.tex",
+  "summary": {
+    "total": 36,
+    "passed": 36,
+    "failed": 0,
+    "all_pass": true
+  },
+  "claims": [
+    {
+      "id": "total_candidates",
+      "label": "Total candidates",
+      "expected": 2044224,
+      "actual": 2044224,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "survivors",
+      "label": "Survivors",
+      "expected": 54,
+      "actual": 54,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "passed_length",
+      "label": "Passed length filter",
+      "expected": 154572,
+      "actual": 154572,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "passed_locks",
+      "label": "Passed homophonic locks",
+      "expected": 61,
+      "actual": 61,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "rejection_rate",
+      "label": "Rejection rate",
+      "expected": 99.9974,
+      "actual": 99.9974,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "solution_coords",
+      "label": "Solution coordinates",
+      "expected": [
+        38.109952,
+        -122.185349
+      ],
+      "actual": [
+        38.109952,
+        -122.185349
+      ],
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "dist_brs",
+      "label": "Distance to BRS",
+      "expected": 1.15,
+      "actual": 1.15,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "dist_lhr",
+      "label": "Distance to LHR",
+      "expected": 2.47,
+      "actual": 2.47,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "dist_triangle",
+      "label": "Distance to triangle anomaly",
+      "expected": {
+        "meters": 254,
+        "miles": 0.158,
+        "feet": 833
+      },
+      "actual": {
+        "meters": 254,
+        "miles": 0.158,
+        "feet": 833
+      },
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "map_offset",
+      "label": "Map-scale offset",
+      "expected": 0.0246,
+      "actual": 0.0246,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "centroid_loc",
+      "label": "Centroid location",
+      "expected": [
+        38.078,
+        -122.2011
+      ],
+      "actual": [
+        38.078,
+        -122.2011
+      ],
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "centroid_dist",
+      "label": "Centroid-to-solution",
+      "expected": 2.37,
+      "actual": 2.37,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "max_span",
+      "label": "Max span",
+      "expected": 54.9,
+      "actual": 54.9,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "offset_pct",
+      "label": "Offset % of span",
+      "expected": 4.3,
+      "actual": 4.3,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "presidio_clock",
+      "label": "Presidio clock hour",
+      "expected": 8.03,
+      "actual": 8.03,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "lhr_clock",
+      "label": "LHR clock hour",
+      "expected": 10.09,
+      "actual": 10.09,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "brs_clock",
+      "label": "BRS clock hour",
+      "expected": 10.04,
+      "actual": 10.04,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "z32_clock",
+      "label": "Z32 clock hour",
+      "expected": 10.0,
+      "actual": 10.0,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "presidio_mag",
+      "label": "Presidio mag bearing",
+      "expected": 240.93,
+      "actual": 240.93,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "lhr_mag",
+      "label": "LHR mag bearing",
+      "expected": 302.74,
+      "actual": 302.74,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "brs_mag",
+      "label": "BRS mag bearing",
+      "expected": 301.34,
+      "actual": 301.34,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "z32_mag",
+      "label": "Z32 mag bearing",
+      "expected": 300.0,
+      "actual": 300.0,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "inner_sides",
+      "label": "Inner triangle sides",
+      "expected": [
+        3.34,
+        3.31,
+        3.36
+      ],
+      "actual": [
+        3.34,
+        3.31,
+        3.36
+      ],
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "inner_angles",
+      "label": "Inner triangle angles",
+      "expected": [
+        59.2,
+        60.7,
+        60.0
+      ],
+      "actual": [
+        59.2,
+        60.7,
+        60.0
+      ],
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "inner_max_dev",
+      "label": "Inner max angle dev",
+      "expected": 0.8,
+      "actual": 0.8,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "angular_sep",
+      "label": "Angular separation MD->Z32 vs MD->PH",
+      "expected": 59.07,
+      "actual": 59.07,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "op_tri_sides",
+      "label": "Operational triangle sides",
+      "expected": [
+        50.2,
+        30.3,
+        54.9
+      ],
+      "actual": [
+        50.2,
+        30.3,
+        54.9
+      ],
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "survival_rate",
+      "label": "Survival rate",
+      "expected": 2.64e-05,
+      "actual": 2.6415891800507184e-05,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "zone_odds",
+      "label": "Geographic zone odds",
+      "expected": 506000,
+      "actual": 506000,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "dist_87pct",
+      "label": "Survivor 8/10 concentration",
+      "expected": {
+        "hour8": 25,
+        "hour10": 22,
+        "combined": 47,
+        "total": 54,
+        "pct": 87.0,
+        "enrichment": 5.2
+      },
+      "actual": {
+        "hour8": 25,
+        "hour10": 22,
+        "combined": 47,
+        "total": 54,
+        "pct": 87.0,
+        "enrichment": 5.2
+      },
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "ph_brs_sep",
+      "label": "PH-BRS angular separation",
+      "expected": 60.41,
+      "actual": 60.41,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "ph_brs_delta",
+      "label": "PH-BRS delta from 60 deg",
+      "expected": 0.41,
+      "actual": 0.41,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "lhr_solstice_offset",
+      "label": "LHR-solstice offset",
+      "expected": -1,
+      "actual": -1,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "brs_aphelion_offset",
+      "label": "BRS-aphelion offset",
+      "expected": 0,
+      "actual": 0,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "timer_postmark_offset",
+      "label": "3.375-month timer postmark offset",
+      "expected": -2,
+      "actual": -2,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    },
+    {
+      "id": "timer_received_offset",
+      "label": "3.375-month timer received offset",
+      "expected": 0,
+      "actual": 0,
+      "value_ok": true,
+      "tex_ok": true,
+      "pass": true
+    }
+  ]
+}

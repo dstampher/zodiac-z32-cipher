@@ -1,0 +1,672 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[hang,flushmargin]{footmisc}
+\usepackage[section]{placeins}          % auto-FloatBarrier at every \section
+\usepackage{needspace}                  % keep heading + first paragraph together
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    citecolor=blue!60!black,
+    urlcolor=blue!60!black
+}
+
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{1em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small\textit{Z32 Cipher: Geospatial Constraint Satisfaction}}
+\lhead{\small\textit{Stampher}}
+\cfoot{\thepage}
+
+\newcommand{\coords}[2]{#1\textdegree{}N,\,#2\textdegree{}W}
+\newcommand{\zsoln}{\texttt{INTHREEANDTHREEEIGHTHSRADIANSTEN}}
+
+% Prevent orphan headings at page bottoms
+\newcommand{\secbreak}{\needspace{4\baselineskip}}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Geospatial Constraint Satisfaction\\[4pt] in the Zodiac Z32 Cipher}\\[16pt]
+    {\large David Stampher}\\[4pt]
+    {\normalsize\href{mailto:davidstampher@gmail.com}{davidstampher@gmail.com}}\\[4pt]
+    {\normalsize February 14, 2026}\\[8pt]
+    {\small Version 2.0}\\[4pt]
+    {\small Code and data: \href{https://github.com/dstampher/zodiac-z32-cipher}{github.com/dstampher/zodiac-z32-cipher}}
+\end{center}
+
+\vspace{8pt}
+
+\begin{abstract}
+The Z32 cipher, a 32-character homophonic substitution cipher sent by the Zodiac killer on June~26, 1970, has resisted cryptanalysis for over 55 years. With only 29 unique symbols in 32 positions, Z32 falls below the unicity distance required for linguistic frequency analysis---the method that solved the Zodiac's longer ciphers Z408 and Z340. This paper reframes Z32 as a Geospatial Constraint Satisfaction Problem (GeoCSP), exploiting the boundary conditions the Zodiac himself provided: a Phillips 66 road map centered on Mount Diablo, a crosshair aligned to magnetic north with clock-position numbers, and the explicit hint ``radians and \# inches along the radians.'' We enumerate 2,044,224 candidate phrases across 12 structural templates and filter by three independent constraints: character length, homophonic lock consistency, and geographic projection within the map bounds. Only 54 candidates survive (99.9974\% rejection rate). Of these, a single candidate---\texttt{IN THREE AND THREE EIGHTHS RADIANS TEN}---uniquely converges with a 100-foot equilateral triangular crop mark located 254 meters from the decoded coordinates. The solution is independently corroborated by its position near the geometric centroid of the Zodiac's operational triangle, by the alignment of all Vallejo crime scenes within the cipher's decoded clock-hour sector, and by the morphological correspondence between the ciphertext's triangle symbol and the ground feature. An internal structural property of the cipher further constrains the result: 47 of 54 survivors (87.0\%) decode to clock hours 8 or 10---the two vectors corresponding to the Zodiac's crime zones---representing a 5.2$\times$ enrichment over random expectation. These independent lines of evidence render coincidence statistically untenable.
+
+\blfootnote{\textbf{License:} Text \textcopyright~2026 David Stampher (CC BY 4.0). Imagery \textcopyright~Google Earth/Airbus/OSM/CARTO (Fair Use/Academic Allowance). This document contains proprietary third-party imagery and should not be redistributed commercially.}
+\end{abstract}
+
+\vspace{4pt}
+\noindent\rule{\textwidth}{0.4pt}
+\tableofcontents
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{8pt}
+
+%% ===================================================================
+\section{Introduction}
+\label{sec:intro}
+%% ===================================================================
+
+\subsection{The Z32 Cipher and the Unicity Distance Problem}
+
+The Zodiac killer produced four ciphers during his period of known activity between 1968 and 1970. The first, Z408, was a 408-character homophonic substitution cipher solved by Donald and Bettye Harden within a week of its publication in 1969. The longest, Z340, resisted solution for 51 years before being cracked in 2020 by David Oranchak, Jarl Van Eycke, and Sam Blake using modern computational methods. Both solutions relied on frequency analysis of repeated ciphertext symbols to recover plaintext letter distributions---the standard approach to homophonic substitution ciphers.
+
+The Z32 cipher, sent on June~26, 1970, consists of just 32 characters. Of these, only 29 are unique symbols; three pairs of positions share the same ciphertext symbol. This places Z32 well below the unicity distance---the minimum ciphertext length at which a unique plaintext solution becomes statistically determinable through frequency analysis alone.
+
+This is why Z32 has remained unsolved for over 55 years. Every prior attempt treated it as a linguistic cipher and applied frequency-based or pattern-matching techniques that are mathematically insufficient for a message this short. The key insight of this paper is that Z32 is not, and was never intended to be, a linguistic cipher. It is a geographic instruction, and the Zodiac told us so explicitly.
+
+\subsection{The Boundary Conditions}
+
+The Z32 cipher was not delivered in isolation. It was accompanied by four explicit pieces of context that, taken together, define a polar coordinate system:
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{The Phillips 66 Road Map.} The cipher was sent alongside a Phillips 66 road map of the San Francisco Bay Area. This establishes the cartographic reference frame, including the map scale (measured at 6.4 miles per inch from the legend) and the geographic extent of the solution space.
+
+\item \textbf{The Mt.\ Diablo Crosshair.} On the map, the Zodiac drew a crosshair centered on the summit of Mount Diablo (37.8816\textdegree{}N, 121.9144\textdegree{}W). The crosshair is annotated with the numbers 0, 3, 6, and 9 at the cardinal positions, and the instruction ``0 is to be set to Mag.\ N.''---establishing a clock-face coordinate system anchored to magnetic north.
+
+\item \textbf{The ``Radians and Inches'' Hint.} Accompanying text states: ``The Map coupled with this code will tell you where the bomb is set. You have until next Fall to dig it up\ldots\ radians \& \# inches along the radians.'' This explicitly describes a polar coordinate encoding: an angular direction (``radians,'' i.e., radial vectors from the anchor) and a linear distance (``inches along the radians'').
+
+\item \textbf{The Ciphertext.} The 32 characters of Z32 itself, containing three homophonic lock pairs at positions (0,25), (1,31), and (5,13).
+\end{enumerate}
+
+Most prior analyses treated these accompanying materials as secondary to the cipher. Our approach inverts this hierarchy: the map, crosshair, and hint define the problem's constraints, and the cipher provides the specific parameters within that constrained system.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{./figs/fig01_cipher_context.jpg}
+\caption{The cipher and its map context. \textbf{(A)}~The June~26, 1970 letter with the Z32 ciphertext at bottom. \textbf{(B)}~The Phillips 66 road map with the Zodiac's Mt.\ Diablo crosshair.}
+\label{fig:cipher}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{./figs/fig02_radians_clue.jpg}
+\caption{The radians-and-inches framework. \textbf{(A)}~The Zodiac's postscript: ``radians \& \# inches along the radians.'' \textbf{(B)}~The Phillips 66 clock cue with ``0 is to be set to Mag.\ N.''}
+\label{fig:radians}
+\end{figure}
+
+\subsection{Contribution}
+
+This paper makes the following contributions:
+
+\begin{enumerate}[leftmargin=2em]
+\item We reframe Z32 as a Geospatial Constraint Satisfaction Problem, bypassing the unicity distance limitation that has stymied all prior approaches.
+\item We exhaustively enumerate over two million candidate phrases across 12 structural templates, demonstrating that the proposed solution is robust across all reasonable phrasings of polar coordinate instructions in English.
+\item We present independent geometric corroboration from the crime scene geography that validates the underlying coordinate framework.
+\item We report the discovery of a triangular anomaly at the decoded coordinates whose morphology corresponds to a triangle symbol in the ciphertext.
+\item We identify a structural property of the cipher itself: 87\% of survivors fall on the two clock hours corresponding to the Zodiac's crime zones.
+\item All code and data are publicly available for independent reproduction.\footnote{\url{https://github.com/dstampher/zodiac-z32-cipher}}
+\end{enumerate}
+
+
+%% ===================================================================
+\section{Methodology}
+\label{sec:method}
+%% ===================================================================
+
+\subsection{The Geospatial Constraint Satisfaction Problem}
+
+We formalize the decryption of Z32 as a constraint satisfaction problem. Let $S$ be a candidate plaintext string. $S$ is a valid solution if and only if it satisfies three independent constraints:
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Syntactic constraint:} $S$ must be exactly 32 characters long and must encode a parseable navigational instruction (an angular direction and a linear distance).
+\item \textbf{Cryptographic constraint:} $S$ must satisfy the homophonic lock conditions: $S[0]=S[25]$, $S[1]=S[31]$, and $S[5]=S[13]$.
+\item \textbf{Geospatial Constraint:} The coordinates derived from $S$ must fall within the bounds of the Phillips 66 road map (approximately 37.3\textdegree--38.8\textdegree{}N, 121.0\textdegree--123.0\textdegree{}W).
+\end{enumerate}
+
+The power of this formulation lies in the conjunction of independent constraints. Any single constraint eliminates a large fraction of candidates; their intersection reduces the search space by over 99.99\%.
+
+\subsection{The Lexicon}
+
+To enumerate all plausible navigational phrases, we define a lexicon of English words that could appear in a polar coordinate instruction:
+
+\begin{table}[H]
+\centering
+\caption{Lexicon components and their cardinalities.}
+\label{tab:lexicon}
+\begin{tabular}{lll}
+\toprule
+\textbf{Category} & \textbf{Elements} & \textbf{Count} \\
+\midrule
+Integers & \texttt{ZERO} through \texttt{TWELVE} & 13 \\
+Fractions & (none), \texttt{AND A HALF}, \texttt{AND ONE HALF}, \texttt{AND A THIRD}, \ldots & 26 \\
+ & includes halves, thirds, quarters/fourths, eighths, sixteenths & \\
+Prefixes & (none), \texttt{IN}, \texttt{AT}, \texttt{TO}, \texttt{BY}, \texttt{GO}, \texttt{ON} & 7 \\
+Radian units & \texttt{RAD}, \texttt{RADS}, \texttt{RADIAN}, \texttt{RADIANS} & 4 \\
+Distance units & (none), \texttt{INCH}, \texttt{INCHES} & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The fraction vocabulary is deliberately expansive, including both ``A QUARTER'' and ``ONE QUARTER,'' both ``FOURTHS'' and ``QUARTERS,'' and sixteenths---none of which appear in the primary solution. This ensures the search space is not inadvertently biased toward the proposed answer.
+
+\subsection{Template Families}
+
+A navigational instruction consists of semantic roles---a prefix, a distance value (integer + fraction), a distance unit, an angular value, and an angular unit---that can be arranged in different orders. We define 12 structural templates (A through L) covering every plausible ordering:
+
+\begin{table}[H]
+\centering
+\caption{Template families and candidate counts. Templates B, D, E, F, J, and L produce zero survivors, demonstrating that the ciphertext's internal structure forces a specific phrase ordering.}
+\label{tab:templates}
+\begin{tabular}{clrr}
+\toprule
+\textbf{ID} & \textbf{Structure} & \textbf{Candidates} & \textbf{Survivors} \\
+\midrule
+A & {[prefix][distance][fraction][rad unit][angle]}  & 113,568 & 20 \\
+B & {[prefix][angle][rad unit][distance][fraction]}   & 113,568 & 0  \\
+C & {[prefix][distance][fraction][angle][rad unit]}   & 113,568 & 2  \\
+D & {[prefix][angle][distance][fraction][rad unit]}   & 113,568 & 0  \\
+E & {[prefix][rad unit][angle][distance][fraction]}   & 113,568 & 0  \\
+F & {[prefix][rad unit][distance][fraction][angle]}   & 113,568 & 0  \\
+G & {[prefix][distance][fraction][dist unit][rad unit][angle]} & 227,136 & 15 \\
+H & {[prefix][distance][fraction][dist unit][angle][rad unit]} & 227,136 & 3 \\
+I & {[prefix][angle][rad unit][distance][fraction][dist unit]} & 227,136 & 1 \\
+J & {[prefix][angle][distance][fraction][dist unit][rad unit]} & 227,136 & 0 \\
+K & {[prefix][dist unit][distance][fraction][rad unit][angle]} & 227,136 & 13 \\
+L & {[prefix][rad unit][angle][dist unit][distance][fraction]} & 227,136 & 0 \\
+\midrule
+ & \textbf{Total} & \textbf{2,044,224} & \textbf{54} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A notable structural finding is that half of the template families (B, D, E, F, J, L) produce zero survivors whatsoever. The ciphertext's homophonic locks, combined with the 32-character length constraint, do not merely filter candidates---they force a specific phrase architecture. This is a property of the cipher itself, not of our search design.
+
+\subsection{Geographic Projection}
+
+For each candidate that survives the cryptographic filter, we project geographic coordinates as follows. Let $h$ be the clock-hour value (1--12) and $d$ be the distance in inches. The projection proceeds in three steps:
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Magnetic bearing:} $\theta_{\text{mag}} = (h \bmod 12) \times 30$\textdegree
+\item \textbf{True bearing:} $\theta_{\text{true}} = \theta_{\text{mag}} + 17$\textdegree, where 17\textdegree{}E is the magnetic declination for the Mt.\ Diablo region in 1970 (NOAA Historical Declination Calculator).
+\item \textbf{Distance:} $D = d \times 6.4$ miles, where 6.4 miles/inch is the measured scale of the Phillips 66 map.
+\end{enumerate}
+
+The coordinates are then computed by Haversine forward projection from the Mt.\ Diablo summit.
+
+
+%% ===================================================================
+\section{Results: The Decryption}
+\label{sec:results}
+%% ===================================================================
+
+\subsection{The Constraint Funnel}
+
+\begin{table}[H]
+\centering
+\caption{Constraint funnel: progressive elimination of candidates.}
+\label{tab:funnel}
+\begin{tabular}{lr}
+\toprule
+\textbf{Stage} & \textbf{Candidates Remaining} \\
+\midrule
+Total generated (12 templates $\times$ full lexicon) & 2,044,224 \\
+Pass length filter (exactly 32 characters) & 154,572 \\
+Pass homophonic locks ($S[0]\!=\!S[25]$, $S[1]\!=\!S[31]$, $S[5]\!=\!S[13]$) & 61 \\
+Pass geographic bounds (within Phillips 66 map extent) & 54 \\
+\midrule
+\textbf{Rejection rate} & \textbf{99.9974\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Of 2,044,224 candidates, 54 survive all three constraints---a rejection rate of 99.9974\%. The homophonic lock filter is the most discriminating single constraint, eliminating 99.96\% of length-32 candidates.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{./figs/fig12_constraint_funnel.jpg}
+\caption{Constraint funnel visualization showing progressive elimination from over two million candidates to 54 survivors.}
+\label{fig:funnel}
+\end{figure}
+
+\subsection{The Top Candidates}
+
+The 54 survivors are ranked by proximity to the nearest known Zodiac crime scene. The top three candidates all share the identical structure: \texttt{IN [N] AND [FRACTION] RADIANS TEN}. The cipher's constraints have locked the prefix (\texttt{IN}), the integer distance (\texttt{THREE}), the angular unit (\texttt{RADIANS}), and the clock hour (\texttt{TEN}). Only the fractional component remains as a free variable, spanning a range of half an inch on the map---approximately 3.2 miles on the ground.
+
+While two candidates land within 2.5 miles of a crime scene, only one converges with the triangular anomaly at the site: candidate \#1 is 254 meters from the feature, while candidate \#2 is 3,620 meters away---a factor of 14.3$\times$ farther. The physical evidence at the site, described in Section~\ref{sec:triangle}, resolves this remaining ambiguity.
+
+\subsection{The Primary Solution}
+\label{sec:primary-solution}
+
+The primary solution decodes as:
+
+\begin{center}
+\fbox{\texttt{IN THREE AND THREE EIGHTHS RADIANS TEN}}
+\end{center}
+
+This instructs: measure $3\tfrac{3}{8}$ inches along the 10 o'clock radial from Mount Diablo on the Phillips 66 map.
+
+\begin{itemize}[leftmargin=2em]
+\item Distance: $3.375 \times 6.4 = 21.6$ miles
+\item Magnetic bearing: $10 \times 30\text{\textdegree} = 300\text{\textdegree}$
+\item True bearing: $300\text{\textdegree} + 17\text{\textdegree} = 317\text{\textdegree}$
+\item Projected coordinates: \coords{38.10995}{122.18535}
+\end{itemize}
+
+The coordinates fall in unincorporated Solano County, California, 1.15 miles from the Blue Rock Springs attack site and 2.47 miles from the Lake Herman Road attack site---both Zodiac crime scenes in the Vallejo area.
+
+The solution satisfies all three homophonic locks:
+
+\begin{itemize}[leftmargin=2em]
+\item Position 0 (\texttt{I}) = Position 25 (\texttt{I}) \checkmark
+\item Position 1 (\texttt{N}) = Position 31 (\texttt{N}) \checkmark
+\item Position 5 (\texttt{E}) = Position 13 (\texttt{E}) \checkmark
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{./figs/fig03_decoded_context.jpg}
+\caption{Regional context for the decoded coordinates, showing proximity to the Lake Herman Road and Blue Rock Springs crime scenes. (Imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:decoded}
+\end{figure}
+
+
+%% ===================================================================
+\section{Site Analysis: The Triangular Anomaly}
+\label{sec:triangle}
+%% ===================================================================
+
+\subsection{The Ground Feature}
+
+Upon examining the decoded coordinates in satellite imagery, a distinct geometric anomaly is visible approximately 0.158 miles (254 meters, 833 feet) to the northwest, centered at approximately 38.1111\textdegree{}N, 122.1878\textdegree{}W. The feature presents as an approximately equilateral triangle with sides of roughly 100 feet (30 meters), exhibiting a pronounced positive vegetation differential: the interior displays vigorous green growth while the surrounding terrain is brown and dormant.
+
+In archaeological remote sensing, positive crop marks of this type indicate subsurface disturbance: excavated and backfilled soil retains moisture more effectively than undisturbed ground, promoting vegetation growth even during dry periods. This interpretation is consistent with the Zodiac's explicit statement in his June~26, 1970 letter: ``You have until next Fall to dig it up.''
+
+Additional satellite imagery captured under wet conditions shows the triangle collecting standing water, demonstrating that the feature is a topographic depression---consistent with an excavation basin rather than a surface marking.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\textwidth]{./figs/fig04_triangle_closeup.jpg}
+\caption{Close-up of the triangular anomaly in recent imagery, showing the positive vegetation signature. (Imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:triangle_closeup}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.47\textwidth}
+\centering
+\includegraphics[width=\textwidth]{./figs/fig06d_triangle_bw_2012.jpg}
+\captionof{figure}{B\&W-enhanced 2012 frame with clear triangular edges and interior circle. (Imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:triangle_bw}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.47\textwidth}
+\centering
+\includegraphics[width=\textwidth]{./figs/fig06a_triangle_water_2023.jpg}
+\captionof{figure}{Wet-condition frame showing water retention in the triangular depression. (Imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:triangle_water}
+\end{minipage}
+\end{figure}
+
+\subsection{Ciphertext--Symbol Correspondence}
+
+The Z32 ciphertext contains triangle symbols ($\triangle$) at positions 1, 11, and 31. Notably, positions 1 and 31 constitute one of the three homophonic lock pairs---the triangle symbol appears at both the second character and the final character of the message, structurally bookending the ciphertext.
+
+We present this correspondence as an observation rather than a proof. The match is suggestive but could be coincidental; equilateral triangles have limited morphological variation. Its significance lies in its convergence with the other independent lines of evidence.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{./figs/fig05_symbol_correspondence.jpg}
+\caption{Ciphertext triangle symbol and ground-feature morphological correspondence. \textbf{(A)}~Satellite close-up. \textbf{(B)}~Cipher overlay. \textbf{(C)}~The cipher's triangle symbol. (Panels A-B imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:overlay}
+\end{figure}
+
+\subsection{Physical Characteristics of the Depression}
+
+Comparison of satellite imagery across dates and conditions reveals two additional properties of the feature that constrain its physical interpretation.
+
+Under wet conditions (February 2022 imagery), the triangular depression collects standing water, confirming that it is a topographic basin---not merely a surface discoloration or vegetation artifact. The water pools within the triangular boundary, indicating excavated terrain whose compacted or disturbed substrate retains water differently from the surrounding soil.
+
+In dry-condition imagery (March 2016), the feature reveals a concentric inner structure: a roughly circular region of distinct soil expression is visible within the outer triangular perimeter. This concentric morphology---an outer triangle enclosing an inner circle---is more consistent with deliberate construction than with natural erosion or standard agricultural practice.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}[t]{0.47\textwidth}
+\centering
+\includegraphics[width=\textwidth]{./figs/fig06b_triangle_water_2022.jpg}
+\captionof{figure}{February 2022: standing water pooled within the triangular depression, confirming a topographic basin. (Imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:triangle_water_2022}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.47\textwidth}
+\centering
+\includegraphics[width=\textwidth]{./figs/fig06c_triangle_inner_expression_2016.jpg}
+\captionof{figure}{March 2016: imagery revealing a concentric inner circle within the outer triangle perimeter. (Imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:triangle_inner}
+\end{minipage}
+\end{figure}
+
+\subsection{The Offset: Analog Precision Tolerance}
+
+The 254-meter offset between the decoded coordinates and the center of the triangular anomaly warrants discussion. At the Phillips 66 map scale of 6.4 miles per inch, this offset corresponds to 0.0246 inches---approximately the width of a pencil line drawn on a 1970 road map. If the Zodiac plotted the location by hand on a paper map, this level of imprecision is not merely expected but essentially unavoidable.
+
+For comparison, candidate \#2 is 3,620 meters from the triangle (14.3$\times$ farther), and candidate \#3 is 4,908 meters away (19.3$\times$ farther). The offset for candidate \#1 is consistent with analog plotting error; the offsets for candidates \#2 and \#3 are not.
+
+\subsection{Historical Aerial Timeline}
+
+The feature's temporal history constrains its origin. Review of historical aerial imagery at the cited coordinates reveals the following sequence:
+
+\begin{table}[H]
+\centering
+\caption{Historical aerial imagery timeline at approximately 38.1111\textdegree{}N, 122.1878\textdegree{}W.}
+\label{tab:timeline}
+\begin{tabular}{lll}
+\toprule
+\textbf{Year} & \textbf{Source} & \textbf{Observation} \\
+\midrule
+1964 & HistoricAerials.com & No feature visible. Undisturbed terrain. \\
+1968 & HistoricAerials.com & Soil disturbance visible in the area. \\
+1982 & HistoricAerials.com & Triangular feature clearly visible. \\
+2009 & HistoricAerials.com & Feature persists. \\
+2023 & Google Earth (Airbus) & Feature clearly visible with crop mark. \\
+2025 & Google Maps & Feature visible with positive vegetation signature. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The absence of the feature in 1964 imagery and its definitive presence by 1982 brackets its creation to an 18-year window that encompasses the Zodiac's known period of activity (1968--1970). The 1968 imagery shows evidence of soil disturbance in the area, though the distinct triangular morphology is not yet fully apparent at the available resolution. Readers may independently verify this temporal sequence at the cited coordinates using HistoricAerials.com.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{./figs/fig06_triangle_multidate_grid.jpg}
+\caption{Multi-date imagery timeline showing persistent triangular morphology under different seasons and moisture conditions. (Imagery \textcopyright~Google Earth, Airbus)}
+\label{fig:multidate}
+\end{figure}
+
+\subsection{Topographic Concordance}
+
+A comparative terrain-profile reading against the Zodiac's ``Death Machine'' sketch indicates morphological similarity: a roadside drainage depression, a stepped ascent to a bench at approximately 500 feet, and a continued rise to a 609-foot summit. USGS elevation data at the site confirms this profile. We treat this as supplementary observational evidence rather than a primary quantitative proof.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{./figs/fig15_topographic_match.jpg}
+\caption{Topographic comparison: \textbf{(A)}~the Zodiac's schematic, \textbf{(B)}~Google Street View context, \textbf{(C)}~the USGS terrain profile at the site. (Panel B Street View imagery \textcopyright~Google; Panel C map \textcopyright~CalTopo)}
+\label{fig:topo}
+\end{figure}
+
+
+%% ===================================================================
+\section{Geometric Corroboration}
+\label{sec:geometry}
+%% ===================================================================
+
+\subsection{The Five Points}
+
+Five geographic points define the operational footprint of the Zodiac case and the decoded solution: Mount Diablo (the stated anchor), Lake Berryessa (the northernmost attack site), Presidio Heights in San Francisco (the westernmost and final confirmed attack site), Lake Herman Road, and Blue Rock Springs (the two Vallejo-area attack sites nearest the decoded coordinates). We first establish these points on the map before adding any geometric construction.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.90\textwidth]{./figs/fig07_points_map.jpg}
+\caption{The five fixed geographic points with no geometric construction lines. (Basemap tiles \textcopyright~Esri; source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community)}
+\label{fig:points}
+\end{figure}
+
+\subsection{The Operational Triangle}
+
+The operational triangle is formed by the three cardinal points of the Zodiac's geography: Mt.\ Diablo (the stated anchor), Lake Berryessa (the northernmost attack), and Presidio Heights (the westernmost attack). Its side lengths are 50.2~mi, 30.3~mi, and 54.9~mi, with interior angles 82.1\textdegree, 33.1\textdegree, and 64.8\textdegree---a scalene triangle, not equilateral.
+
+The geometric centroid of this triangle is located at \coords{38.0780}{122.2011}. The Z32 solution coordinates (\coords{38.1100}{122.1853}) lie 2.37 miles from this centroid---an offset of just 4.3\% relative to the triangle's maximum span of 54.9 miles. The decoded location is, in practical terms, the geographic center of the Zodiac's known operational region.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{./figs/fig08_operational_triangle.jpg}
+\caption{The operational triangle with centroid and solution location. (Map base \textcopyright~OpenStreetMap contributors, \textcopyright~CARTO)}
+\label{fig:operational}
+\end{figure}
+
+\subsection{The Inner Near-Equilateral}
+
+The three non-arbitrary vertices nearest the decoded solution---Lake Herman Road, Blue Rock Springs, and the operational centroid---form a near-equilateral triangle. Side lengths are 3.34~mi, 3.31~mi, and 3.36~mi; interior angles are 59.2\textdegree, 60.7\textdegree, and 60.0\textdegree; the maximum angle deviation from 60\textdegree\ is just 0.8\textdegree. The Z32 solution lies inside this triangle.
+
+None of these three vertices was chosen post hoc: LHR and BRS are the two nearest crime scenes to the decoded point, and the centroid is an independently determined geometric property of the operational triangle. A Monte Carlo estimate sampling random third vertices uniformly within the operational triangle (with the LHR--BRS edge fixed) yields a probability of approximately $2.7 \times 10^{-5}$ (about 1 in 37,000) for a triangle meeting this 0.8\textdegree\ tolerance. The near-equilateral geometry is therefore not an expected coincidence.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{./figs/fig09_inner_equilateral.jpg}
+\caption{The inner near-equilateral triangle formed by Lake Herman Road, Blue Rock Springs, and the operational centroid. \textbf{(A)}~Map context with side lengths. \textbf{(B)}~Aligned-base view with interior angles and deviations from 60\textdegree. Maximum deviation: 0.8\textdegree\ (Monte Carlo $p \approx 1/37{,}000$). (Panel A map base \textcopyright~OpenStreetMap contributors, \textcopyright~CARTO)}
+\label{fig:equilateral}
+\end{figure}
+
+\subsection{The Clock-Hour Framework}
+
+The Zodiac's crosshair on the Phillips 66 map, with clock-position numbers 0, 3, 6, 9 and the instruction to set 0 to magnetic north, defines a clock-face coordinate system centered on Mount Diablo. We test whether the known crime scenes align to this framework by computing the magnetic bearing from Mt.\ Diablo to each site and converting to clock-hour position.
+
+\begin{table}[H]
+\centering
+\caption{Clock-hour positions of Zodiac crime scenes relative to Mt.\ Diablo, computed using the 1970 magnetic declination of 17\textdegree{}E.}
+\label{tab:clock}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Location} & \textbf{Mag.\ Bearing} & \textbf{Clock Hour} & \textbf{Error from Nearest} \\
+\midrule
+Presidio Heights (10/11/1969) & 240.93\textdegree & 8.03 & 0.93\textdegree \\
+Lake Herman Road (12/20/1968) & 302.74\textdegree & 10.09 & 2.74\textdegree \\
+Blue Rock Springs (07/04/1969) & 301.34\textdegree & 10.04 & 1.34\textdegree \\
+Z32 Solution & 300.00\textdegree & 10.00 & 0.00\textdegree \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The results are striking. The Presidio Heights murder---the Zodiac's only attack in San Francisco---falls at 8.03 o'clock, less than one degree from the exact 8:00 position. Both Vallejo attack sites fall within the 10 o'clock sector: Blue Rock Springs at 10.04 and Lake Herman Road at 10.09. The Z32 solution falls at exactly 10.00 o'clock, with zero residual error. The cipher's plaintext ends with the word \texttt{TEN}.
+
+This framework was not derived from the cipher solution. The crosshair with clock numbers was drawn by the Zodiac himself on the Phillips 66 map. The alignment of the crime scenes to whole clock hours is an independent geometric fact that was discovered after decryption, serving as external validation of the coordinate system.
+
+A critical observation follows from the crime scenes alone, without reference to the cipher solution. The angular separation between the Mt.\ Diablo$\rightarrow$Presidio Heights vector and the Mt.\ Diablo$\rightarrow$Blue Rock Springs vector is 60.41\textdegree---within 0.41\textdegree\ of a perfect 60\textdegree\ (two clock hours). This is a pre-existing geographic fact: the Zodiac's 8~o'clock and 10~o'clock crime zones are separated by almost exactly one-third of a half-circle, validating the clock-face framework independently of any decryption.
+
+The decoded solution then tightens this geometry. The angular separation between the Mt.\ Diablo$\rightarrow$Z32 vector and the Mt.\ Diablo$\rightarrow$Presidio Heights vector is 59.07\textdegree---within 0.93\textdegree\ of 60\textdegree. The solution falls precisely on the pre-existing 60\textdegree\ crime-scene wedge, refining but not creating the underlying structure. Combined with the near-equilateral inner triangle, this suggests a deeper geometric coherence linking the cipher's coordinate framework to the crime scene topology.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{./figs/fig10_clock_framework.jpg}
+\caption{Clock-hour geometry from Mt.\ Diablo. \textbf{(A)}~Polar clock overview with the 60\textdegree\ sector between 8 and 10 o'clock highlighted. The PH\,\textrightarrow\,BRS angular separation is 60.41\textdegree; the PH\,\textrightarrow\,solution separation is 59.07\textdegree. \textbf{(B)}~The 10 o'clock sector projected onto the map, containing all Vallejo scenes and the decoded solution. (Panel B map base \textcopyright~OpenStreetMap contributors, \textcopyright~CARTO)}
+\label{fig:clock}
+\end{figure}
+
+
+%% ===================================================================
+\section{The Cipher's Structural Bias}
+\label{sec:bias}
+%% ===================================================================
+
+An independent structural property of the cipher corroborates the geometry. Of 54 survivors, 47 (87.0\%) decode to clock hours 8 or 10: hour~8 accounts for 25 survivors, hour~10 for 22, with the remaining 7 distributed across hours 2 (5), 3 (1), and 12 (1). With 12 possible hours, the random expectation for any two specific hours is 16.7\%; the observed concentration is therefore 5.2$\times$ enriched.
+
+This concentration is produced by cipher structure, not post-hoc filtering: the lock pairs (0,25), (1,31), and (5,13), together with the 32-character length condition, strongly favor terminal hour words \texttt{EIGHT} and \texttt{TEN}, which happen to align with the two crime-zone vectors from Mt.\ Diablo. The cipher, by its internal construction, preferentially generates solutions pointing toward the Zodiac's known areas of activity.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{./figs/fig11_survivor_distribution.jpg}
+\caption{Survivor distribution by clock hour, highlighting the 47/54 concentration at hours 8 and~10.}
+\label{fig:survivors}
+\end{figure}
+
+
+%% ===================================================================
+\section{On the ``Radians'' Terminology}
+\label{sec:radians-term}
+%% ===================================================================
+
+A potential objection concerns the word ``radians'' in the decoded plaintext. In standard mathematics, a radian is a unit of angular measure equal to approximately 57.3\textdegree, with $2\pi$ radians constituting a full circle. Three and three-eighths mathematical radians would correspond to approximately 193.4\textdegree---not a clock-hour position.
+
+The Zodiac's usage of ``radians'' is not mathematical. His own hint reads: ``radians \& \# inches along the radians.'' The phrase ``inches along the radians'' makes the intended meaning clear: ``radians'' refers to the radial lines (spokes) of the clock-face system, and ``inches along the radians'' means distance measured along those spokes. This is consistent with the colloquial use of ``radian'' to mean ``a radial line or ray''---a usage attested in some dictionaries and technical contexts outside pure mathematics.
+
+The Zodiac was not a mathematician; he was a map-reader who invented his own coordinate vocabulary. The crosshair diagram with clock numbers on the Phillips 66 map is the authoritative definition of what he meant by ``radians'': directed lines radiating from a center point, numbered like a clock face, with distance measured in map inches along those lines.
+
+
+%% ===================================================================
+\section{Statistical Synthesis}
+\label{sec:stats}
+%% ===================================================================
+
+\subsection{Independent Lines of Evidence}
+
+The case for the proposed solution rests not on any single observation but on the convergence of independently derived quantities:
+
+\begin{enumerate}[leftmargin=2em]
+\item \textbf{Cryptographic survival.} Only 54 of 2,044,224 candidates survive all filters---a survival rate of $2.64 \times 10^{-5}$.
+\item \textbf{Geographic proximity.} Of the 54 survivors, only 3 land within 2.5 miles of a known crime scene.
+\item \textbf{Anomaly convergence.} Of those 3, only 1 converges with the triangular anomaly (254~m vs.\ 3,620~m for the next nearest).
+\item \textbf{Centroid alignment.} The solution falls within 4.3\% of the operational triangle's span from its geometric centroid.
+\item \textbf{Clock-hour consistency.} Both Vallejo crime scenes and the solution fall in the 10 o'clock sector; Presidio Heights falls at 8.03 o'clock.
+\item \textbf{Inner near-equilateral geometry.} The triangle formed by the two nearest crime scenes and the operational centroid has a maximum angle deviation of just 0.8\textdegree\ from equilateral (Monte Carlo probability $\approx$ 1/37,000).
+\item \textbf{Pre-existing angular structure.} Before any decryption, the Presidio Heights and Blue Rock Springs crime scenes are separated by 60.41\textdegree\ as viewed from Mt.\ Diablo---within 0.41\textdegree\ of a perfect two-clock-hour sector. This validates the clock-face framework from crime-scene data alone.
+\item \textbf{Angular refinement by the solution.} The decoded solution tightens this wedge: the 8- and 10-o'clock vectors from Mt.\ Diablo are separated by 59.07\textdegree, within 0.93\textdegree\ of 60\textdegree.
+\item \textbf{Structural survivor bias.} 47/54 survivors (87.0\%) resolve to clock hours 8 and 10 (5.2$\times$ enrichment vs.\ random), a property of the cipher's internal lock structure.
+\item \textbf{Symbol correspondence.} The ciphertext's triangle symbols correspond morphologically to the ground feature.
+\item \textbf{Temporal bracketing.} The anomaly's creation is bounded to a window (1964--1982) that encompasses the Zodiac's known active period.
+\end{enumerate}
+
+\subsection{Conservative Probability Estimate}
+
+We estimate the joint probability of these observations occurring by coincidence under conservative assumptions.
+
+The triangular anomaly occupies approximately 4,330 square feet ($1.55 \times 10^{-4}$ square miles). Even restricting the reference area to a conservative 5-mile-radius circle around the Vallejo crime zone (approximately 79 square miles), the probability of a randomly placed point landing within the triangle is approximately 1/506,000.
+
+The probability of the Presidio Heights attack site falling within 1\textdegree\ of an exact clock-hour position on the Mt.\ Diablo framework, if the framework were arbitrary, is approximately $2 \times 2/360 \approx 1/90$.
+
+Combined with the cryptographic survival rate of $2.64 \times 10^{-5}$, the conservative joint probability is on the order of $10^{-13}$---less than one in a trillion.
+
+We emphasize that this estimate assumes independence between the observations, which may overstate the combined significance. Nevertheless, even under substantially more conservative assumptions, the convergence of these independent lines of evidence renders coincidence extremely unlikely.
+
+\subsection{Addressing Potential Objections}
+
+\paragraph{1. ``The search space was designed to produce this answer.''}
+The 12 template families, 7 prefixes, 26 fraction phrasings, and expanded unit vocabulary were chosen to be maximally inclusive of all plausible navigational phrasings. Six of the 12 template families produced zero survivors, demonstrating that much of the search space actively works against the proposed solution. The design choice was to cast the widest possible net, not to target a predetermined answer.
+
+\paragraph{2. ``The triangular feature could be natural or agricultural.''}
+Equilateral triangles with sharp edges and positive crop marks are not characteristic of natural geology or standard agricultural practice in the region. The temporal bracketing to the 1964--1982 window, overlapping the Zodiac's active period, further constrains the origin. Ground-penetrating radar survey would be the definitive test.
+
+\paragraph{3. ``The 254-meter offset means the coordinates do not point to the triangle.''}
+At the map scale of 6.4 miles per inch, 254 meters corresponds to 0.0246 inches---the width of a pencil line. Candidate \#2 is 14.3$\times$ farther from the triangle. The offset is consistent with the precision of manual plotting on a 1970 road map.
+
+\paragraph{4. ``Radians does not mean clock hours.''}
+The Zodiac drew clock-hour numbers on the map and wrote ``inches along the radians.'' The intended meaning of ``radians'' as radial spokes, not angular measure, is established by his own materials.
+
+\paragraph{5. ``The inner equilateral is cherry-picked.''}
+The vertices are not arbitrary: LHR and BRS are the nearest crime scenes to the decoded point, and the centroid is defined independently from Mt.\ Diablo, Lake Berryessa, and Presidio Heights. A Monte Carlo estimate gives a probability of approximately $2.7 \times 10^{-5}$ for meeting the observed 0.8\textdegree\ tolerance by chance within the operational triangle.
+
+\paragraph{6. ``Declination uncertainty could break clock assignments.''}
+A 1970 declination of 17\textdegree{}E is well documented by NOAA. Varying declination by $\pm$2\textdegree\ moves the 10-hour assignment only slightly (about 9.93 to 10.07), preserving the alignment pattern.
+
+
+%% ===================================================================
+\section{Discussion}
+\label{sec:discussion}
+%% ===================================================================
+
+This section addresses broader implications of the geometric relationships described above. We present only verifiable facts and note where interpretation is required.
+
+\subsection{The Pre-Existing Geometric Framework}
+
+The angular relationships documented in \S\ref{sec:geometry} include a striking feature that is entirely independent of the cipher solution. The Presidio Heights and Blue Rock Springs crime scenes, as viewed from Mt.\ Diablo, are separated by 60.41\textdegree---within 0.41\textdegree\ of a perfect 60\textdegree\ sector (two clock hours). This is a physical fact about real crime-scene locations, calculable from publicly available coordinates and standard geodesic mathematics, requiring no reference to the Z32 cipher.
+
+This implies that the clock-face coordinate system centered on Mt.\ Diablo was not an arbitrary construction imposed by the analyst, but a framework to which the crime scenes themselves already conform. The decoded solution then refines this pre-existing structure, tightening the PH--SOL separation to 59.07\textdegree---closer still to the 60\textdegree\ ideal.
+
+\subsection{Chronological Observations}
+
+The following facts are verifiable from public records:
+
+\begin{itemize}[leftmargin=2em]
+\item The first three confirmed Zodiac attacks---Lake Herman Road (December 1968), Blue Rock Springs (July 1969), and Lake Berryessa (September 1969)---all fall within the 10 o'clock sector as viewed from Mt.\ Diablo (clock hours 10.09, 10.04, and 10.77 respectively).
+\item The fourth and final confirmed attack---Presidio Heights (October 11, 1969)---falls at 8.03 o'clock, a distinct sector. This was the only attack in which the perpetrator had full control of both time and location (a hailed taxicab to a specified destination).
+\item Only after this fourth attack is the operational triangle (Mt.\ Diablo, Lake Berryessa, Presidio Heights) complete, and with it, the geometric centroid that serves as a vertex of the inner near-equilateral.
+\item The Z32 cipher was mailed on June~26, 1970---approximately eight months after the Presidio Heights attack.
+\end{itemize}
+
+\noindent Two additional date-level observations are worth recording. The Lake Herman Road attack occurred on the evening of December~20, 1968---the eve of the winter solstice (December~21, 1968 at 19:00:18~UTC; Meeus algorithm). The Blue Rock Springs attack occurred on July~4, 1969, which coincides with Earth's annual aphelion---the point in its orbit farthest from the Sun (typically July 3--5). Both dates mark astronomical extremes: the shortest day and the maximum Sun--Earth distance. For a perpetrator who would later adopt the name ``Zodiac'' and encode angular measurement in his cipher, these calendar alignments are thematically consonant---though they may be entirely coincidental.
+
+A separate numerical observation concerns the plaintext value itself. If the quantity $3\tfrac{3}{8}$ is interpreted as months rather than inches, the interval from the Z32 mailing date (June~26, 1970) projects to approximately October~6-7, 1970. The Zodiac's next cartographic communication---the so-called ``13-Hole'' postcard, which also featured a punched hole on a map---was postmarked October~5 and received October~7, 1970. The temporal offset is $\leq$2~days. We record this coincidence without asserting dual-use intent; we note only that the encoded value, when recast in temporal units, aligns with the next cartographic communication to within the precision of postal transit.
+
+We note these facts without asserting intentionality. The question of whether the geometric framework was deliberate or emergent is, at present, unanswerable from the available evidence. However, the observations above---particularly the pre-existing 60\textdegree\ angular structure among crime scenes---constrain any null hypothesis that must be evaluated against the proposed solution.
+
+
+%% ===================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%% ===================================================================
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{./figs/fig14b_synthesis_geometry_clean.jpg}
+\caption{Integrated geometry synthesis: the operational triangle, inner equilateral, clock-hour framework, and decoded solution converge at a single location. (Map base \textcopyright~OpenStreetMap contributors, \textcopyright~CARTO)}
+\label{fig:synthesis}
+\end{figure}
+
+We propose that the Z32 cipher decodes as \texttt{IN THREE AND THREE EIGHTHS RADIANS TEN}, instructing a measurement of $3\tfrac{3}{8}$ inches along the 10 o'clock radial from Mount Diablo on the Zodiac's Phillips 66 road map. This yields coordinates \coords{38.10995}{122.18535} in Solano County, California, 1.15 miles from the Blue Rock Springs attack site.
+
+The argument presented in this paper is not a single-thread proof but a \emph{consilience of inductions}: the convergence of multiple independent lines of evidence, none individually conclusive, but collectively coherent to a degree that renders coincidence statistically untenable.
+
+\textbf{The cipher constrains the answer.} Of 2,044,224 exhaustively enumerated navigational phrases spanning 12 template families, 26 fractional forms, 7 prefixes, and 4 unit variants, only 54 survive the conjunction of the 32-character length requirement, the three homophonic lock conditions, and the map-bounds geographic filter---a 99.9974\% rejection rate. The solution is not one interpretation among many; it is one of a vanishingly small number of structurally valid possibilities.
+
+\textbf{The geography confirms the cipher.} The decoded coordinates fall in the heart of the Zodiac's Vallejo crime zone, 1.15 miles from Blue Rock Springs and 2.47 miles from Lake Herman Road. The point lies 2.37 miles from the geometric centroid of the operational triangle defined by Mt.\ Diablo, Lake Berryessa, and Presidio Heights---an offset of 4.3\% relative to the triangle's 54.9-mile span. All crime scenes and the decoded solution align to whole clock-hour positions on the Zodiac's own Mt.\ Diablo framework, with Presidio Heights at 8.03 o'clock and both Vallejo sites within the 10 o'clock sector.
+
+\textbf{The ground evidence corroborates both.} At the decoded location, satellite imagery reveals a persistent 100-foot equilateral triangular crop mark---a positive vegetation anomaly consistent with subsurface excavation---just 254 meters (0.0246 map-inches) from the projected coordinates. The feature's temporal history brackets its creation to a window encompassing the Zodiac's active period. Its morphology corresponds to triangle symbols that bookend the Z32 ciphertext.
+
+\textbf{The cipher's own structure encodes the crime geography.} Of the 54 surviving candidates, 47 (87\%) decode to clock hours 8 and 10---the two directions that correspond to the Zodiac's known attack zones. This 5.2$\times$ enrichment over random expectation is produced by the internal lock structure of the cipher, not by any post-hoc selection.
+
+\textbf{The geometry is self-consistent at multiple scales.} The two nearest crime scenes and the operational centroid form a near-equilateral triangle (maximum angle deviation 0.8\textdegree\ from 60\textdegree; Monte Carlo probability $\approx$ 1/37,000). Before the cipher is even decoded, the Presidio Heights and Blue Rock Springs crime scenes are separated by 60.41\textdegree\ as viewed from Mt.\ Diablo---validating the clock-face framework from crime-scene data alone. The decoded solution refines this to 59.07\textdegree. These geometric relationships were not inputs to the decryption; they were discovered after it.
+
+No single line of evidence constitutes proof. Together, they form an interlocking web of cryptographic, geographic, archaeological, and structural constraints that all point to the same location. The appropriate framework for evaluating this evidence is not the probability of any single observation, but the joint probability of all observations coinciding under the null hypothesis of chance---conservatively estimated at less than one in a trillion.
+
+We recommend ground-penetrating radar survey of the triangular anomaly and engagement with law enforcement agencies that retain jurisdiction over the Zodiac case.
+
+\vspace{10pt}
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection*{Legal and Ethical Disclaimer}
+\label{sec:disclaimer}
+
+\textbf{Research Purposes Only.} This analysis identifies a theoretical location based on constraint satisfaction modeling. The findings have not been verified by physical excavation or law enforcement.
+
+\textbf{Do Not Trespass.} The coordinates identified in this solution (\coords{38.1099}{122.1853}) may reside on private property or protected public land. Do not attempt to visit, survey, or disturb the location without explicit written permission from the landowner.
+
+\textbf{Law Enforcement Context.} The Zodiac Killer case is an open homicide investigation. Any potential evidence located at these coordinates must be handled solely by law enforcement to preserve the chain of custody. Disturbing a site can destroy forensic evidence and hinder the investigation.
+
+\subsection*{Acknowledgments}
+The author thanks the researchers and amateur cryptanalysts of the Zodiac community whose decades of work preserved and organized the primary source materials essential to this analysis.
+
+\subsection*{Data Availability}
+
+All code and data necessary to reproduce the results in this paper are available at \url{https://github.com/dstampher/zodiac-z32-cipher}. The repository includes:
+
+\begin{itemize}[leftmargin=2em]
+\item \texttt{z32.py} --- the constraint satisfaction solver (2,044,224 candidates).
+\item \texttt{verify.py} --- independent verification of all quantitative claims.
+\item \texttt{check\_claims.py} --- automated claim-to-source traceability (36 claims, all PASS).
+\item \texttt{geo.py} --- shared geographic mathematics (haversine, bearings, projections).
+\item \texttt{data.py} --- canonical coordinates and constants.
+\item \texttt{output/z32\_results.csv} --- complete survivor table.
+\item \texttt{output/verify\_results.json} --- computed verification values.
+\item \texttt{output/claim\_map.json} --- claim-to-source mapping with PASS/FAIL status.
+\end{itemize}
+
+All computations use only the Python standard library and are reproducible with a single command.
+
+\end{document}
