@@ -1,0 +1,15 @@
+# Python internals
+__pycache__/
+*.pyc
+
+# Virtual Environment (You have this in your screenshot)
+.venv/
+env/
+venv/
+
+# VS Code Settings (User specific settings)
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db

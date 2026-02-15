@@ -1,16 +1,28 @@
 MIT License
 
-Copyright (c) 2025 David Stampher
+Copyright (c) 2026 David Stampher
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
+of this software and associated source code files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+2. LIMITATION OF SCOPE: This license explicitly excludes the following assets
+   contained within this repository:
+   - The LaTeX source files (*.tex) and the compiled whitepaper PDF.
+   - All geospatial imagery, maps, and satellite figures.
+
+   These assets are subject to the following terms:
+   - The LaTeX source files (*.tex) and the text content of the whitepaper are
+     licensed under Creative Commons Attribution 4.0 International (CC BY 4.0).
+   - The imagery and maps are proprietary third-party content (© Google, Airbus,
+     OpenStreetMap, CARTO) used under fair use/academic allowance and may not be
+     redistributed for commercial purposes without the rights holders' permission.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
