@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solving the Zodiac Z32 Cipher with Python</title>
+  <meta name="description" content="Solving the Zodiac Z32 cipher with Python as a constraint-satisfaction problem, with computational findings, timeline, falsification criteria, and links to the whitepaper and code." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Sans+3:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #6c6c6c;
+      --rule: #e5e5e5;
+      --max: 760px;
+      --wide: 980px;
+      --body-font: "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display-font: "Inter", "Source Sans 3", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--body-font);
+      font-size: 21px;
+      line-height: 1.74;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-underline-offset: 0.16em;
+      text-decoration-thickness: 1px;
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    .page {
+      padding: 34px 22px 90px;
+    }
+
+    .masthead {
+      max-width: 920px;
+      margin: 0 auto 28px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--display-font);
+      font-size: clamp(40px, 7vw, 72px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .subhead {
+      max-width: 760px;
+      margin: 18px auto 0;
+      font-size: clamp(22px, 2.5vw, 29px);
+      line-height: 1.34;
+    }
+
+    .byline {
+      margin: 12px auto 0;
+      max-width: 760px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .eyebrow {
+      margin: 12px auto 0;
+      max-width: 760px;
+      font-size: 13px;
+      line-height: 1.5;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .top-links {
+      margin-top: 18px;
+      font-family: var(--display-font);
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .top-links a + a::before {
+      content: " / ";
+      margin: 0 8px 0 6px;
+      color: var(--muted);
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      margin-top: 10px;
+      font-family: var(--display-font);
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .caption-credit {
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+      line-height: 1.35;
+      color: var(--muted);
+    }
+
+    .hero {
+      max-width: var(--wide);
+      margin: 28px auto 42px;
+    }
+
+    .meta {
+      max-width: var(--max);
+      margin: 0 auto 36px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .article {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .article p {
+      margin: 0 0 1.3em;
+    }
+
+    .article .lead {
+      font-size: 1.17em;
+      line-height: 1.58;
+    }
+
+    .solution {
+      max-width: var(--max);
+      margin: 42px auto;
+      text-align: center;
+      padding: 22px 0;
+      border-top: 1px solid var(--text);
+      border-bottom: 1px solid var(--text);
+    }
+
+    .solution .label {
+      display: block;
+      margin-bottom: 10px;
+      font-family: var(--display-font);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .solution strong {
+      display: block;
+      font-family: var(--display-font);
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .mini-section {
+      max-width: var(--max);
+      margin: 38px auto 0;
+      padding-top: 26px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .mini-section h2 {
+      margin: 0 0 14px;
+      font-family: var(--display-font);
+      font-size: 16px;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .mini-section p {
+      margin: 0 0 1em;
+    }
+
+    .timeline {
+      max-width: var(--max);
+      margin: 8px auto 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline li {
+      position: relative;
+      margin: 0;
+      padding: 0 0 16px 26px;
+      line-height: 1.55;
+    }
+
+    .timeline li:last-child {
+      padding-bottom: 0;
+    }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      top: 0.72em;
+      left: 0;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--text);
+    }
+
+    .timeline strong {
+      font-family: var(--display-font);
+      font-size: 0.9em;
+      font-weight: 700;
+    }
+
+    .single {
+      max-width: var(--wide);
+      margin: 50px auto;
+    }
+
+    .pair {
+      max-width: var(--wide);
+      margin: 52px auto;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .inline-links {
+      text-align: center;
+      margin: 34px auto 0;
+      font-family: var(--display-font);
+      font-size: 18px;
+    }
+
+    .inline-links a + a::before {
+      content: " / ";
+      margin: 0 10px 0 8px;
+      color: var(--muted);
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid var(--rule);
+      margin: 72px auto;
+      max-width: 160px;
+    }
+
+    .footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+      font-family: var(--display-font);
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer h2 {
+      margin: 0 0 8px;
+      font-size: 13px;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .footer p { margin: 0 0 10px; }
+
+    @media (max-width: 820px) {
+      body { font-size: 19px; }
+      .page { padding: 24px 16px 64px; }
+      .pair { grid-template-columns: 1fr; gap: 26px; }
+      .hero { margin-top: 22px; margin-bottom: 34px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <h1>Solving the Zodiac Z32 Cipher with Python</h1>
+      <p class="subhead">A brute force search over millions of candidates reduces Z32 to a concrete claim: one plaintext, one location, one landmark.</p>
+      <div class="byline">By David Stampher</div>
+      <div class="eyebrow">First shared publicly on December 22, 2025</div>
+      <div class="top-links">
+        <a href="https://papers.ssrn.com/abstract=6266638">SSRN</a>
+        <a href="https://zenodo.org/records/18645227">Zenodo</a>
+        <a href="https://github.com/dstampher/zodiac-z32-cipher">GitHub</a>
+      </div>
+    </header>
+
+    <figure class="hero">
+      <img src="assets/clock-satellite.jpg" alt="Regional satellite image showing the Mount Diablo reference system, radial construction, and decoded projection." />
+      <figcaption>Mount Diablo reference geometry, decoded bearing, and regional endpoint context. <span class="caption-credit">Image attribution: &copy; Google, Airbus.</span></figcaption>
+    </figure>
+
+    
+    <article class="article">
+      <p class="lead">I first shared this solution publicly in December 2025 after reframing the Zodiac Z32 cipher as a constraint satisfaction problem. That shift matters because Z32 is too short for guesswork but structured enough for elimination: Mount Diablo, magnetic north, radians, inches, and repeated-symbol consistency turn it into a bounded search.</p>
+
+      <p>The Python codebase tests millions of candidate readings against exact length, symbol-lock consistency, and geographic admissibility. Almost all of them fail. What survives is small enough to inspect, rerun, and argue with directly.</p>
+
+      <p>This page is for skeptical readers. It is a short introduction to the claim, the publication timeline, and the falsification standard. The full argument is in the whitepaper. The reproducibility is in the code.</p>
+    </article>
+
+    <div class="solution">
+      <span class="label">Top Ranked Candidate</span>
+      <strong>IN THREE AND THREE EIGHTHS RADIANS TEN</strong>
+    </div>
+
+    <article class="article">
+      <p>Read literally, the proposed plaintext gives a distance and a direction: three and three-eighths inches on the Phillips 66 map, ten on the clock-face radial, corrected to magnetic north as instructed. Run that procedure and it yields a concrete endpoint in Solano County near the Vallejo crime scene cluster.</p>
+
+      <p>The point is not that the line sounds persuasive. The point is that it can be checked. The search can be rerun. The constraints can be challenged. The bearings and declination can be recalculated. The coordinates can be verified. The real question is whether the method breaks or whether a stronger candidate can do better under the same rules.</p>
+    </article>
+
+    <figure class="single">
+      <img src="assets/decoded_context.jpg" alt="Decoded site context showing the regional endpoint area near the proposed location." />
+      <figcaption>Decoded regional context near the proposed solution coordinates. <span class="caption-credit">Image attribution: &copy; Google, Airbus.</span></figcaption>
+    </figure>
+
+    <article class="article">
+      <p>The endpoint is not empty. Near the decoded location sits a clear triangular ground feature. In a cipher whose most distinctive visual form is the triangle glyph, that matters. Not as a substitute for the computation, but as a physical correlate that appears where the constrained search says readers should look.</p>
+
+      <p>That is where skepticism has to become specific. Show that the constraint framework is wrong. Show that the ranking is wrong. Show that the map interpretation fails. Show that the coordinates do not follow. Or show that a stronger candidate survives the same test and lands more convincingly in the world. Anything weaker than that is not a debunk.</p>
+    </article>
+
+    <section class="pair" aria-label="Cipher form and site form">
+      <figure>
+        <img src="assets/cipher_triangle.png" alt="Close-up of the triangular cipher glyph from Z32." />
+        <figcaption>Triangle glyph from the Z32 cipher. <span class="caption-credit">Image attribution: &copy; Google, Airbus.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/triangle_closeup.jpg" alt="Close aerial image of the triangular ground feature near the decoded location." />
+        <figcaption>Triangular ground feature near the decoded endpoint. <span class="caption-credit">Image attribution: &copy; Google, Airbus.</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="pair" aria-label="Additional site views">
+      <figure>
+        <img src="assets/triangle_bw.jpg" alt="Black-and-white aerial view of the triangular ground feature with central dark form." />
+        <figcaption>Black-and-white view of the triangular ground feature. <span class="caption-credit">Image attribution: &copy; Google, Airbus.</span></figcaption>
+      </figure>
+      <figure>
+        <img src="assets/triangle_water.jpg" alt="Water- or moisture-emphasized image of the triangular ground feature." />
+        <figcaption>Moisture-enhanced view of the same triangular feature. <span class="caption-credit">Image attribution: &copy; Google, Airbus.</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="mini-section">
+      <h2>Publication timeline</h2>
+      <ul class="timeline">
+        <li><strong>December 22, 2025</strong> First shared publicly as the original codebase.</li>
+        <li><strong>January 22, 2026</strong> First whitepaper shared on Zenodo.</li>
+        <li><strong>February 14, 2026</strong> Second whitepaper and codebase shared on Zenodo and SSRN.</li>
+        <li><strong>Version 3</strong> In progress, alongside a JavaScript implementation for this website.</li>
+      </ul>
+    </section>
+
+    <section class="mini-section">
+      <h2>Falsification criteria</h2>
+      <p>A meaningful debunk should do one of four things: invalidate the constraint framework, show a material error in the geometry or declination, demonstrate that the published coordinates do not follow from the method, or produce a stronger candidate that survives the same search and fits the external evidence better.</p>
+      <p>That is the standard this project invites. The goal is not to avoid scrutiny. The goal is to force scrutiny to become precise.</p>
+    </section>
+
+    <section class="mini-section">
+      <h2>Where to go next</h2>
+      <p>This page is only the entry point. The full argument is in the whitepaper. The reproducibility is in the code. Version 3 and the JavaScript implementation will expand both.</p>
+    </section>
+
+    <section class="mini-section">
+      <h2>Credits, Copyright, and Disclaimer</h2>
+      <p>Several figures on this page incorporate Google Earth imagery and related map or image credits visible on the source images. Google Earth, associated map data, and third-party imagery credits remain the property of their respective owners and should stay visible where shown.</p>
+      <p>This page presents computational findings. The results were reported to authorities before being shared publicly. Do not trespass or endanger any person or property.</p>
+    </section>
+
+    <figure class="single">
+      <img src="assets/cipher_overlay.png" alt="Overlay of the cipher triangle against the triangular ground feature near the decoded endpoint." />
+      <figcaption>Overlay of the Z32 triangle glyph and the triangular ground feature near the decoded endpoint. <span class="caption-credit">Image attribution: &copy; Google, Airbus.</span></figcaption>
+    </figure>
+
+    <div class="inline-links">
+      <a href="https://papers.ssrn.com/abstract=6266638">Read on SSRN</a>
+      <a href="https://zenodo.org/records/18645227">View Zenodo record</a>
+      <a href="https://github.com/dstampher/zodiac-z32-cipher">Review the code</a>
+    </div>
+
+    <hr />
+
+    <footer class="footer">
+      <h2>Disclaimer</h2>
+      <p>This page presents computational findings. The results were reported to authorities before being shared publicly. Do not trespass.</p>
+    </footer>
+  </main>
+</body>
+</html>
